@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "db:push": "drizzle-kit push"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "type": "commonjs",
   "dependencies": {
     "@clerk/express": "^1.0.1",
     "cors": "^2.8.5",
