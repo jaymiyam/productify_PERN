@@ -2,6 +2,9 @@ import { ENV } from './config/env';
 import express from 'express';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
+import commentRouter from './routes/commentRoutes';
+import userRouter from './routes/userRoutes';
+import productRouter from './routes/productRoutes';
 
 const app = express();
 
@@ -9,6 +12,10 @@ app.use(cors({ origin: ENV.FRONTEND_URL }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(clerkMiddleware());
+
+app.use('/api/users', userRouter);
+app.use('/api/comments', commentRouter);
+app.use('/api/products', productRouter);
 
 app.get('/', (req, res) => {
   res.json({
