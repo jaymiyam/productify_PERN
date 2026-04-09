@@ -2,7 +2,7 @@ import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // table creations
-
+// most schema methods are just mirrors of writting SQL
 export const users = pgTable('users', {
   id: text('id').primaryKey(), //clerkId
   email: text('email').notNull().unique(),
@@ -51,15 +51,15 @@ export const usersRelations = relations(users, ({ many }) => ({
 
 export const productsRelations = relations(products, ({ one, many }) => ({
   comments: many(comments),
-  users: one(users, { fields: [products.userId], references: [users.id] }),
+  user: one(users, { fields: [products.userId], references: [users.id] }),
 }));
 
 export const commentsRelations = relations(comments, ({ one }) => ({
-  products: one(products, {
+  product: one(products, {
     fields: [comments.productId],
     references: [products.id],
   }),
-  users: one(users, { fields: [comments.userId], references: [users.id] }),
+  user: one(users, { fields: [comments.userId], references: [users.id] }),
 }));
 
 // Type inference
@@ -67,7 +67,7 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 
 export type Product = typeof products.$inferSelect;
-export type newProduct = typeof products.$inferInsert;
+export type NewProduct = typeof products.$inferInsert;
 
 export type Comment = typeof comments.$inferSelect;
 export type NewComment = typeof comments.$inferInsert;
