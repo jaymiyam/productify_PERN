@@ -13,15 +13,15 @@ const productRouter = Router();
 
 // get all products
 productRouter.get('/', getAllProducts);
-// get product by id
-productRouter.get('/:id', getProductById);
 // get all products for a specific user (protected)
 productRouter.get('/myproducts', requireAuth(), getProductsByUserId);
+// get product by id
+productRouter.get('/:id', getProductById);
 // create new product (protected)
 productRouter.post('/', requireAuth(), createProduct);
 // update a product (protected)
 productRouter.put('/:id', requireAuth(), updateProduct);
 // delete a product (protected)
-productRouter.put('/:id', requireAuth(), deleteProduct);
+productRouter.delete('/:id', requireAuth(), deleteProduct);
 
 export default productRouter;
