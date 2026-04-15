@@ -18,9 +18,9 @@ const App = () => {
   // do not render app unless clerk finishes loading
   if (!isClerkLoaded) return null;
   return (
-    <div>
+    <div className="min-h-screen bg-base-100">
       <NavBar />
-      <main>
+      <main className="max-w-5xl mx-auto px-4 py-8">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route
