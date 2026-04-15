@@ -46,7 +46,9 @@ export const useDeleteProduct = () => {
 
   return useMutation({
     mutationFn: deleteProduct,
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['myProducts'] });
+      queryClient.invalidateQueries({ queryKey: ['product', variables.id] });
       queryClient.invalidateQueries({ queryKey: ['myProducts'] });
     },
   });

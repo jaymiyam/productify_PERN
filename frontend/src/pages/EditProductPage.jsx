@@ -16,10 +16,18 @@ function EditProductPage() {
   const { userId } = useAuth();
   const navigate = useNavigate();
 
-  const { data: product, isLoading } = useGetProductById(id);
+  const { data: product, isLoading, error } = useGetProductById(id);
   const updateProduct = useUpdateProduct();
 
   if (isLoading) return <LoadingSpinner />;
+
+  if (error) {
+    return (
+      <div role="alert" className="alert alert-error max-w-md mx-auto">
+        <span>Failed to load this product. Please try again.</span>
+      </div>
+    );
+  }
 
   if (!product || product.userId !== userId) {
     return (

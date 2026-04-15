@@ -14,13 +14,21 @@ const ProfilePage = () => {
   const { data: products, isLoading, error } = useGetMyProducts();
   const deleteProduct = useDeleteProduct();
 
-  if (isLoading) return <LoadingSpinner />;
-
   const handleDelete = (id) => {
     if (confirm('Delete this product?')) {
       deleteProduct.mutate(id);
     }
   };
+
+  if (isLoading) return <LoadingSpinner />;
+
+  if (error) {
+    return (
+      <div role="alert" className="alert alert-error">
+        <span>Something went wrong. Please refresh the page.</span>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -41,12 +49,6 @@ const ProfilePage = () => {
           <div className="stat-value text-primary">{products?.length || 0}</div>
         </div>
       </div>
-
-      {error && (
-        <div role="alert" className="alert alert-error">
-          <span>Something went wrong. Please refresh the page.</span>
-        </div>
-      )}
 
       {/* Products */}
       {products?.length === 0 ? (
